@@ -88,54 +88,25 @@
         button:hover {
             background-color: #45a049;
         }
-
-        .slider-toast {
-            animation: slideInRight 0.5s, slideOutRight 0.5s 2.5s;
-            /* Slide in and out animations */
-        }
-
-        @keyframes slideInRight {
-            from {
-                transform: translateX(100%);
-            }
-
-            to {
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes slideOutRight {
-            from {
-                transform: translateX(0);
-            }
-
-            to {
-                transform: translateX(100%);
-            }
-        }
     </style>
 
-    <!-- javascript function -->
+    <!-- javascript funtion -->
     <script>
-        // Notification data success
+        //Notification data success
         document.addEventListener('DOMContentLoaded', function () {
             @if (Session:: has('success'))
         Swal.fire({
             icon: 'success',
             title: 'Success',
             text: "{{ Session::get('success') }}",
+            showConfirmButton: false,
             timer: 3000
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Reset the form fields on successful submission
-                document.getElementById('userForm').reset();
-            }
         });
         @endif
 
-        // Lottie file function
+        //Lottie file funtion
         const animationContainer = document.getElementById('lottie-animation');
-        const animationPath = 'https://lottie.host/c8ade029-9950-474e-8ed2-8b6d2c45c9b8/FXosIa96GU.json'; // Lottie file link
+        const animationPath = 'https://lottie.host/c8ade029-9950-474e-8ed2-8b6d2c45c9b8/FXosIa96GU.json'; //lottie file link
 
         if (animationContainer && animationPath) {
             const animation = lottie.loadAnimation({
@@ -150,7 +121,7 @@
         }
         });
 
-        // Notification Form
+        //Notification Form
         async function validateForm() {
             var name = document.getElementById('name').value;
             var email = document.getElementById('email').value;
@@ -161,103 +132,37 @@
 
             // Check if name is empty
             if (name.trim() === '') {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops!',
-                    text: 'Please enter your name.',
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 6000,  // Set the timer for 6 seconds
-                    customClass: {
-                        popup: 'slider-toast',  // Custom class for the sliding toast
-                    },
-                });
+                alert('Please enter your name.');
                 return false; // Prevent form submission
             }
 
             // Check if email is valid
             if (!isValidEmail(email)) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Please enter a valid email address.',
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 6000,  // Set the timer for 6 seconds
-                    customClass: {
-                        popup: 'slider-toast',  // Custom class for the sliding toast
-                    },
-                });
+                alert('Please enter a valid email address.');
                 return false;
             }
 
             // Check if password meets requirements (e.g., minimum length)
             if (password.length < 6) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Password must be at least 6 characters.',
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 6000,  // Set the timer for 6 seconds
-                    customClass: {
-                        popup: 'slider-toast',  // Custom class for the sliding toast
-                    },
-                });
+                alert('Password must be at least 6 characters.');
                 return false;
             }
 
             // Check if gender is selected
             if (gender === '') {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Please select your gender.',
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 6000,  // Set the timer for 6 seconds
-                    customClass: {
-                        popup: 'slider-toast',  // Custom class for the sliding toast
-                    },
-                });
+                alert('Please select your gender.');
                 return false;
             }
 
             // Check if birthday is selected
             if (birthday === '') {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Please enter your birthday.',
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 6000,  // Set the timer for 6 seconds
-                    customClass: {
-                        popup: 'slider-toast',  // Custom class for the sliding toast
-                    },
-                });
+                alert('Please enter your birthday.');
                 return false;
             }
 
             // Check if Status Active is checked
             if (!statusActive) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Please activate the Status Active checkbox.',
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 6000,  // Set the timer for 6 seconds
-                    customClass: {
-                        popup: 'slider-toast',  // Custom class for the sliding toast
-                    },
-                });
+                alert('Please activate the Status Active checkbox.');
                 return false;
             }
 
@@ -298,7 +203,7 @@
         <div id="form-container">
             <h1>Create User</h1>
 
-            <form id="userForm" action="{{ route('user.store') }}" method="post" onsubmit="return validateForm()">
+            <form action="{{ route('user.store') }}" method="post" onsubmit="return validateForm()">
                 @csrf <!-- CSRF protection -->
 
                 <label for="name">Name:</label>
